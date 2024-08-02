@@ -1075,10 +1075,15 @@ class LatexPrinter(Printer):
             return tex
 
     def _print_log(self, expr, exp=None):
-        if not self._settings["ln_notation"]:
-            tex = r"\log{\left(%s \right)}" % self._print(expr.args[0])
+        args = expr.args
+        if len(args) == 1:
+            if self._settings["ln_notation"]:
+                tex = r"\ln{%s}" % self._add_parens(args[0])
+            else:
+                tex = r"\log{%s}" % self._add_parens(args[0])
         else:
-            tex = r"\ln{\left(%s \right)}" % self._print(expr.args[0])
+            tex = r"\log_{%s}{%s}" % \
+                (self._print(args[1]), self._add_parens(args[0]))
 
         if exp is not None:
             return r"%s^{%s}" % (tex, exp)
