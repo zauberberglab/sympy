@@ -15,7 +15,7 @@ from sympy.core.power import Pow
 from sympy.core.sorting import default_sort_key
 from sympy.core.sympify import SympifyError
 from sympy.logic.boolalg import true, BooleanTrue, BooleanFalse
-
+from sympy import E
 
 # sympy.printing imports
 from sympy.printing.precedence import precedence_traditional
@@ -1082,8 +1082,14 @@ class LatexPrinter(Printer):
             else:
                 tex = r"\log{%s}" % self._add_parens(args[0])
         else:
-            tex = r"\log_{%s}{%s}" % \
-                (self._print(args[1]), self._add_parens(args[0]))
+            if args[1] == E:
+                if self._settings["ln_notation"]:
+                    tex = r"\ln{%s}" % self._add_parens(args[0])
+                else:
+                    tex = r"\log{%s}" % self._add_parens(args[0])
+            else:
+                tex = r"\log_{%s}{%s}" % \
+                    (self._print(args[1]), self._add_parens(args[0]))
 
         if exp is not None:
             return r"%s^{%s}" % (tex, exp)
