@@ -439,9 +439,9 @@ def convert_func(func):
                     base = convert_expr(func.subexpr().expr())
                 else:
                     base = convert_atom(func.subexpr().atom())
-            elif name == "lg":  # ISO 80000-2:2019
+            elif name in ("lg", "log"):  # ISO 80000-2:2019
                 base = 10
-            elif name in ("ln", "log"):  # SymPy's latex printer prints ln as log by default
+            elif name == "ln":  # SymPy's latex printer prints ln as log by default
                 base = sympy.E
             expr = sympy.log(arg, base, evaluate=False)
 
