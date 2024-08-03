@@ -660,7 +660,7 @@ class TransformToSymPyExpr(Transformer):
             # TODO: ANTLR refers to ISO 80000-2:2019. should we keep base 10 or base 2?
             return sympy.log(tokens[1], 10)
         elif tokens[0].type == "FUNC_LN":
-            return sympy.log(tokens[1])
+            return sympy.log(tokens[1], sympy.E)
         elif tokens[0].type == "FUNC_LOG":
             # we check if a base was specified or not
             if "_" in tokens:
@@ -668,7 +668,7 @@ class TransformToSymPyExpr(Transformer):
                 return sympy.log(tokens[3], tokens[2])
             else:
                 # a base was not specified
-                return sympy.log(tokens[1])
+                return sympy.log(tokens[1], 10)
 
     def _extract_differential_symbol(self, s: str):
         differential_symbols = {"d", r"\text{d}", r"\mathrm{d}"}
