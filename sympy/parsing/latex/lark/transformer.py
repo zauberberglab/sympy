@@ -127,22 +127,22 @@ class TransformToSymPyExpr(Transformer):
         return tokens[1]
 
     def eq(self, tokens):
-        return sympy.Eq(tokens[0], tokens[2])
+        return sympy.Eq(tokens[0], tokens[2], evaluate=False)
 
     def ne(self, tokens):
-        return sympy.Ne(tokens[0], tokens[2])
+        return sympy.Ne(tokens[0], tokens[2], evaluate=False)
 
     def lt(self, tokens):
-        return sympy.Lt(tokens[0], tokens[2])
+        return sympy.Lt(tokens[0], tokens[2], evaluate=False)
 
     def lte(self, tokens):
-        return sympy.Le(tokens[0], tokens[2])
+        return sympy.Le(tokens[0], tokens[2], evaluate=False)
 
     def gt(self, tokens):
-        return sympy.Gt(tokens[0], tokens[2])
+        return sympy.Gt(tokens[0], tokens[2], evaluate=False)
 
     def gte(self, tokens):
-        return sympy.Ge(tokens[0], tokens[2])
+        return sympy.Ge(tokens[0], tokens[2], evaluate=False)
 
     def add(self, tokens):
         if len(tokens) == 2: # +a
